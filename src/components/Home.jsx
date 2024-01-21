@@ -1,12 +1,21 @@
 import React, { useState } from "react";
+import {useDispatch} from 'react-redux'
 import "./style.css";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import cardsdata from "./Cardsdata";
+import {addtoCart} from '../redux/features/cartSlice'
+import toast from 'react-hot-toast';
 
   const Home = () => {
   const [cartData, setcartData] = useState(cardsdata);
+   const dispatch=useDispatch();
 
+   //addtoCart
+   const send=(e)=>{
+   dispatch(addtoCart(e))
+   toast.success("Item added in cart")
+   }
   return (
     <>
       <section className="item_section mt-4 container">
@@ -38,6 +47,7 @@ import cardsdata from "./Cardsdata";
                  <img src={element.arrimg} alt="" className="limg" />
                  <Button style={{width:"150px",background:"#ff3054db",border:"none"}} variant="outline-light" 
                 className="mt-2 mb-2" 
+                onClick={(e)=>send(element)}
                  >Add To cart</Button>
                    <img src={element.delimg} alt="" className="laimg" />
               </div>
